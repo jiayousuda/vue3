@@ -1,6 +1,22 @@
 {
   "name": "root",
   "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "build": "node scripts/build.js",
+    "size": "node scripts/build.js vue runtime-dom size-check -p -f global",
+    "lint": "eslint --ext .ts packages/*/src/**",
+    "format": "prettier --write --parser typescript \"packages/**/*.ts?(x)\"",
+    "test": "node scripts/build.js vue -f global -d && jest --runInBand",
+    "test-dts": "node scripts/build.js shared reactivity runtime-core runtime-dom -dt -f esm-bundler && yarn test-dts-only",
+    "test-dts-only": "tsc -p ./test-dts/tsconfig.json && tsc -p ./test-dts/tsconfig.build.json",
+    "release": "node scripts/release.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "dev-compiler": "npm-run-all --parallel \"dev template-explorer\" serve",
+    "serve": "serve",
+    "open": "open http://localhost:5000/packages/template-explorer/local.html",
+    "preinstall": "node ./scripts/checkYarn.js"
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
   }
